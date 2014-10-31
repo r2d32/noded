@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1= title
+    h2= user.username
+    ul
+        each u, index in users
+    
+            li= 'username: '+ u.username + ', password: ' + u.password + ', id: '+u.id

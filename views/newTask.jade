@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1= title
+    form(method='post')
+        div(class='col-md-3')
+            input(name='name', class='form-control', placeholder='name')
+        div(class='col-md-3')
+            input(name='description', class='form-control', placeholder='description')
+        div(class='col-md-3')
+            input(type='date',name='date', class='form-control')
+        input(type='submit', class='btn btn-primary', value='Create Task')

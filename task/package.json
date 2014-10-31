@@ -1,0 +1,11 @@
+{
+  "name": "TShare",
+  "version": "0.0.0",
+  "description": "A module for keeping track tasks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Carlos Agudo <carlos@example.com>",
+  "license": "BSD-2-Clause"
+}

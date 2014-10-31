@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1= title
+    h2= user.username
+    ul
+        each task, index in tasks
+            - landed = (task.date != -1)? new Date(task.date) :""
+            li= 'ID: '+task.id + ', NAME: ' + task.name + ', DESCRIPTION: ' + task.description + ', DATE: ' + landed + ', AUTHOR: '+ task.author 
+                - id = task.id
+                a(href='/task/'+task.id+'/delete' title="Delete this todo item")= 'Delete'
+

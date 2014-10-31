@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1= title
+    h2= user.username
+    ul
+        each friend, index in friends
+    
+            li= 'username: '+ friend.username 
