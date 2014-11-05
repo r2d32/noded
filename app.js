@@ -45,6 +45,7 @@ module.exports = function (tasks, db) {
 	app.get('/tasks', routes.tasks);
 	app.get('/userTasks', routes.userTasks);
 	app.delete('/userTasks', routes.deleteTask);
+	app.delete('/:username/deleteUser', routes.deleteUser);
 	app.get('/users', routes.users);
 	app.post('/task/:name/:description/:date/createTask', routes.createTask);
 	app.post('/task/:username/:email/:password/createUser', routes.createUser);

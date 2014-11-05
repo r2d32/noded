@@ -170,13 +170,12 @@ module.exports = function (tasks) {
         );
 
         record.save(function(err) {
-            if (err) {
-                console.log(err);
-                res.status(500).json({status: err});
-            } else {
-                res.json({status: 'success'});
-            }
+            if (err)
+            res.send(err);
+
+            res.json({ message: 'New beer drinker added to the locker room!' });
         });
+
     };
 
     functions.deleteTask = function(req, res){
@@ -187,6 +186,18 @@ module.exports = function (tasks) {
                 res.status(500).json({status: 'failure'});
             } else {
                 res.redirect('/userTasks');
+            }
+        });
+    };
+
+    functions.deleteUser = function(req, res){
+        var username = req.param('username');
+        UserSchema.remove({ username: username }, function (err) {
+            if (err) {
+                console.log(err);
+                res.status(500).json({status: 'failure'});
+            } else {
+                res.redirect('/users');
             }
         });
     };
