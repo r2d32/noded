@@ -44,8 +44,10 @@ module.exports = function (tasks, db) {
 	app.get('/list', routes.list);
 	app.get('/tasks', routes.tasks);
 	app.get('/userTasks', routes.userTasks);
+	app.get('/friendTasks', routes.friendTasks);
 	app.delete('/userTasks', routes.deleteTask);
 	app.delete('/:username/deleteUser', routes.deleteUser);
+	app.get('/search_member', routes.searchUsers);
 	app.get('/users', routes.users);
 	app.post('/task/:name/:description/:date/createTask', routes.createTask);
 	app.post('/task/:username/:email/:password/createUser', routes.createUser);
@@ -59,7 +61,13 @@ module.exports = function (tasks, db) {
 	app.get('/newTask', routes.newTask);
 	app.post('/newTask',routes.createTask);
 
+
+    app.post('/createFriendRequest', routes.createFriendRequest);
+    app.get('/userFriendRequests', routes.userFriendRequests);
+    app.get('/deleteFriend/:friendName', routes.deleteFriend);
 	app.get('/user', routes.user);
+	app.get('/request/:friendID/accept', routes.addFriend);
+	app.get('/friends', routes.friends);
 	app.get('/logout', function(req, res){
         req.logout();
         res.redirect('/login');

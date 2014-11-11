@@ -1,0 +1,15 @@
+extends layout
+
+block styles
+    link(rel="stylesheet", href="tasks.css")
+
+block content
+    h1= title
+    h2= user.username
+    ul
+        each request, index in friendRequests
+            li= 'Request From: ' + request.sender +' Status: '+ request.status
+                - sender = request.sender
+                a(href='/request/'+ sender +'/accept' title="Accept this request")= ' Accept'
+                a(href='/request/'+ sender +'/delete' title="Accept this request")= ' Reject'
+

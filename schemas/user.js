@@ -8,17 +8,25 @@ var User = new mongoose.Schema({
     password:{ type: String, required: true },
     email: String,
     role: String,
-    friends: [ mongoose.Schema.Types.ObjectId ]
+    friends: [ String ]
 });
 
 User.methods.validPassword = function( pwd ) {
     return ( this.password === pwd );
 };
 
+User.methods.isFriendOf = function( friend ) {
+    return ( this.friends.indexOf(friend) != -1 );
+};
+
 User.methods.getID= function() {
     return (this._id);
 };
+User.methods.getFriends= function() {
+    return (this.friends);
+};
 
+//Here is the code for encriptiong the users password upon creation
 User.pre('save', function(next) {
     var user = this;
 

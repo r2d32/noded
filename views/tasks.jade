@@ -9,7 +9,6 @@ block content
     ul
         each task, index in tasks
             - landed = (task.date != -1)? new Date(task.date) :""
-            li= 'ID: '+task.id + ', NAME: ' + task.name + ', DESCRIPTION: ' + task.description + ', DATE: ' + landed + ', AUTHOR: '+ task.author 
-                - id = task.id
+            li= 'ID: '+task.id + ', NAME: ' + task.name + ', DESCRIPTION: ' + task.description + ', DATE: ' + landed + ', AUTHOR: '+ task.authorName 
                 a(href='/task/'+task.id+'/delete' title="Delete this todo item")= 'Delete'
 

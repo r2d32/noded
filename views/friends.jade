@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1= title
+    ul
+        each u, index in thisUser
+            each friend, index in u.friends
+                li= friend 
+                    a(href='/deleteFriend/'+friend+'' title="Delete this friend")= 'Delete'
+

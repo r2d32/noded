@@ -1,5 +1,10 @@
+var mongoose = require('mongoose');
+
 var FriendRequest = new mongoose.Schema({
-    fromUser: mongoose.Schema.Types.ObjectId,
-    toUser:mongoose.Schema.Types.ObjectId,
-    accepted: Boolean,
+    sender: { type: String, required: true },
+    recipient: { type: String, required: true },
+    status: String
 });
+
+
+module.exports = mongoose.model('FriendRequest', FriendRequest);

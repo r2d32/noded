@@ -1,5 +1,19 @@
 extends layout
 
+   
+block styles
+    script(type="text/javascript", src= "scripts/autocomplete.js") 
+
 block content
-	h1= title
-	p= 'Hello ' + user.username + '!'
+    h1= title
+    p= 'Hello ' + user.username + '!'
+
+    form.ui-widget(action='/createFriendRequest' method='post')
+        div(class='col-md-3')
+            input#search-query.ui-autocomplete-input(name='recipient', class='form-control', placeholder='Search Friends')
+        input(type='submit', class='btn btn-primary', value='Send Request')
+    
+
+
+    - var classes = ['ui-autocomplete ', 'ui-front', 'ui-menu ui-widget', 'ui-widget-content']
+    ul#quicksearch(class=classes) 
