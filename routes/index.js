@@ -74,6 +74,53 @@ module.exports = function (tasks) {
         }
     };
 
+    functions.createJoinRequest = function(req, res){
+        var requestFriendsName = req.param('requestFriendsName');
+        var taskID = req.param('taskID');
+        var pentitionStatus = 'pending';
+
+        TaskSchema.findOne({_id:taskID}, function(err, task){
+            if (err){
+                res.send(err);
+                res.redirect('/friendTasks');
+            } else if ((task.joinedUsers.map(function(e) { return e.username; }).indexOf(requestFriendsName)) < 0){
+                TaskSchema.update({ _id: taskID}, {$push: { "joinedUsers":{ username: requestFriendsName, petitionStatus: pentitionStatus }}}, { upsert: true } , function(err) {
+                    if (err)
+                    res.send(err);
+                    
+                    res.redirect('/friendTasks');
+                });
+            } else {
+                res.redirect('/friendTasks');
+
+            }
+        });
+    };
+
+    functions.updateJoinRequest = function(req, res){
+        var taskID = req.param('taskID');
+        var username = req.param('username');
+        var joinRequestID = req.param('joinRequestID');
+        var action = req.param('action');
+        
+        if ( action == 'delete' ){
+            TaskSchema.update({ _id: taskID }, { $pull: { 'joinedUsers': { username: username } } }, {} , function(err) {
+                if (err)
+                res.send(err);
+
+                res.redirect('/friendTasks');
+            });
+        }else{
+            
+            TaskSchema.update({'joinedUsers._id':joinRequestID }, {$set: {'joinedUsers.$.petitionStatus': 'Accepted'}}, function(err) {
+                if (err)
+                res.send(err);
+
+                res.redirect('/friendTasks');
+            });  
+        }     
+    };
+
     functions.userTasks = function(req, res) {
 
         if (req.session.passport.user === undefined) {
@@ -124,10 +171,12 @@ module.exports = function (tasks) {
                             if (err) {
                                     res.status(500).json({status: 'failure'});
                             } else {
+
                                 res.render('tasks', {
                                     title: 'See Whats up',
                                     tasks: tasks,
-                                    user: req.user
+                                    user: req.user,
+                                    friendTasks: true
                                 });
 
                             }
@@ -195,6 +244,7 @@ module.exports = function (tasks) {
             }
         });
     };
+
     functions.createUser = function(req, res){
         
         var username = req.param('username');
@@ -223,7 +273,8 @@ module.exports = function (tasks) {
 
     functions.deleteTask = function(req, res){
         var id = req.param('id');
-        TaskSchema.remove({ _id: id }, function (err) {
+
+        TaskSchema.remove({ _id: id, authorName: req.session.passport.user }, function (err) {
             if (err) {
                 console.log(err);
                 res.status(500).json({status: 'failure'});
@@ -346,26 +397,38 @@ module.exports = function (tasks) {
         });
     };
 
-    functions.addFriend = function(req, res){
+    functions.requestAction = function(req, res){
         var friendID = req.param('friendID');
+        var action = req.param('action');
 
-        UserSchema.update({username: req.session.passport.user}, {$push: {friends:[friendID]}}, {} , function(err) {
-            if (err)
-            res.send(err);
+        if(action == 'accept'){
 
-            UserSchema.update({username: friendID}, {$push: {friends:[req.session.passport.user]}}, {} , function(err) {
+            UserSchema.update({username: req.session.passport.user}, {$push: {friends:[friendID]}}, {} , function(err) {
                 if (err)
                 res.send(err);
+
+                UserSchema.update({username: friendID}, {$push: {friends:[req.session.passport.user]}}, {} , function(err) {
+                    if (err)
+                    res.send(err);
+                });
+                RequestSchema.remove({ sender: friendID }, function (err) {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).json({status: 'failure'});
+                    }
+                });
+
+                res.redirect('/friends');
             });
+        }else{
             RequestSchema.remove({ sender: friendID }, function (err) {
                 if (err) {
                     console.log(err);
                     res.status(500).json({status: 'failure'});
                 }
             });
-
-            res.redirect('/friends');
-        });
+            res.redirect('/userFriendRequests');
+        }
     };
 
     functions.friends = function(req, res){

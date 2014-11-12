@@ -7,7 +7,8 @@ var Task = new mongoose.Schema({
     priority: Number,
     status: String,
     date: Date,
-    description: String
+    description: String,
+    joinedUsers: [ { username: {type: String, required: true, index: { unique: true }}, petitionStatus: String } ]
 });
 
 module.exports = mongoose.model('Task', Task);

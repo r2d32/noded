@@ -1,8 +1,7 @@
 extends layout
 
    
-block styles
-    script(type="text/javascript", src= "scripts/autocomplete.js") 
+
 
 block content
     h1= title
@@ -17,3 +16,7 @@ block content
 
     - var classes = ['ui-autocomplete ', 'ui-front', 'ui-menu ui-widget', 'ui-widget-content']
     ul#quicksearch(class=classes) 
+
+
+block styles
+    script(type="text/javascript", src= "scripts/autocomplete.js") 

@@ -66,7 +66,10 @@ module.exports = function (tasks, db) {
     app.get('/userFriendRequests', routes.userFriendRequests);
     app.get('/deleteFriend/:friendName', routes.deleteFriend);
 	app.get('/user', routes.user);
-	app.get('/request/:friendID/accept', routes.addFriend);
+	app.get('/request/:friendID/:action', routes.requestAction);
+	app.get('/joinTask/:taskID/:requestFriendsName', routes.createJoinRequest);
+    app.get('/deleteJoinPetition/:taskID/:username/:joinRequestID/:action', routes.updateJoinRequest);
+
 	app.get('/friends', routes.friends);
 	app.get('/logout', function(req, res){
         req.logout();

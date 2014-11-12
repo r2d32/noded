@@ -8,7 +8,18 @@ block content
     h2= user.username
     ul
         each task, index in tasks
-            - landed = (task.date != -1)? new Date(task.date) :""
-            li= 'ID: '+task.id + ', NAME: ' + task.name + ', DESCRIPTION: ' + task.description + ', DATE: ' + landed + ', AUTHOR: '+ task.authorName 
-                a(href='/task/'+task.id+'/delete' title="Delete this todo item")= 'Delete'
+            - date = (task.date != -1)? new Date(task.date).toDateString() :""
+            li= 'NAME: ' + task.name + ', DESCRIPTION: ' + task.description + ', DATE: ' + date + ', AUTHOR: '+ task.authorName 
+                if !friendTasks
+                    a(href='/task/'+task.id+'/delete' title="Delete this todo item")= ' Delete'
+                if friendTasks
+                    a(href='/joinTask/'+task.id+'/'+user.username title="Delete this todo item")= ' Join Task'
+                if task.joinedUsers
+                    ul='Joined Friends'
+                        each friend, index in task.joinedUsers 
+                            li=friend.username + ' '+ friend.petitionStatus 
+                                a(href='/deleteJoinPetition/'+task.id+'/'+user.username+'/'+friend.id+'/delete')= 'X'
+                                a(href='/deleteJoinPetition/'+task.id+'/'+user.username+'/'+friend.id+'/accept')= 'V'
+
+
 
