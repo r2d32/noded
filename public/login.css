@@ -1,0 +1,6 @@
+.login{
+    background: url('/imgs/bricks.jpg');
+    height: 272px;
+    /* opacity: .6; */
+    background-size: cover;
+}

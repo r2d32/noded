@@ -3,38 +3,30 @@ html
     head
         title= title
         link(rel="stylesheet", href="bootstrap.min.css") 
+        block upStyles
 
 body
-    .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
-      .container
-        .navbar-header
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-            span.sr-only Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href='#') Project name
-        .navbar-collapse.collapse
-          form.navbar-form.navbar-right(role='form')
-            
-            .form-group
-              input.form-control(type='text', placeholder='Email')
-            .form-group
-              input.form-control(type='password', placeholder='Password')
-            button.btn.btn-success(type='submit') Sign in
-        // /.navbar-collapse
-    // Main jumbotron for a primary marketing message or call to action
-    .jumbotron
-      .container
-        h1 Hello, world!
-        p
-          | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
-        p
-          a.btn.btn-primary.btn-lg(role='button') Learn more &raquo;
+  .navbar.navbar-inverse(role='navigation')
     .container
+      .navbar-header
+        button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href='#') Project name
+      .navbar-collapse.collapse
+        form.navbar-form.navbar-right(role='form')
+          
+          .form-group
+            input.form-control(type='text', placeholder='Email')
+          .form-group
+            input.form-control(type='password', placeholder='Password')
+          button.btn.btn-success(type='submit') Sign in
+      // /.navbar-collapse
+  .container
 
-    block content
-
+  block content
 script(type="text/javascript", src= "scripts/jquery-1.11.1.min.js")    
 script(type="text/javascript", src= "scripts/jquery-ui.min.js")
 script(type="text/javascript", src= "scripts/bootstrap.min.js")  
