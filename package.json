@@ -1,6 +1,6 @@
 {
   "name": "application-name",
-  "description":"a sharable todo list app made using node mongoDB express and jade",
+  "description":"A sharable todo list app made using node mongoDB express and jade",
   "version": "0.0.1",
   "private": true,
   "scripts": {
