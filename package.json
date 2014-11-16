@@ -21,7 +21,7 @@
     "mocha": "~1.12.1",
     "should": "~1.2.2",
     "supertest": "^0.14.0"
-  }
+  },
   "subdomain": "noded",
   "scripts": {
     "start": "node start.js"
