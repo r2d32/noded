@@ -52,6 +52,10 @@ module.exports = function (tasks, db) {
 	app.post('/task/:name/:description/:date/createTask', routes.createTask);
 	app.post('/task/:username/:email/:password/createUser', routes.createUser);
 	app.get('/', routes.login);
+	app.post('/', passport.authenticate('local', {
+		failureRedirect: '/login',
+		successRedirect: '/user'
+	}));
 	app.get('/login', routes.login);
 	app.post('/login', passport.authenticate('local', {
 		failureRedirect: '/login',
